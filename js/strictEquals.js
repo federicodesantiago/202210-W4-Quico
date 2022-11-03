@@ -1,9 +1,4 @@
-const strictEquals = function () {
-    const zero = 0;
-    const zeroNegative = -0;
-    const a = 0;
-    const b = 0;
-
+export default function strictEquals(a, b) {
     if (Object.is(a, b)) {
         if (Number.isNaN(a) || Number.isNaN(b)) {
             return false;
@@ -11,12 +6,12 @@ const strictEquals = function () {
         return true;
     }
     if (
-        (Object.is(a, zero) && Object.is(a, zeroNegative)) ||
-        (Object.is(zero, b) && Object.is(zeroNegative, b))
+        Object.is(a, -0) ||
+        Object.is(a, 0) ||
+        Object.is(0, b) ||
+        Object.is(-0, b)
     ) {
         return true;
     }
     return false;
-};
-
-export default strictEquals();
+}
